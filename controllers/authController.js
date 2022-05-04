@@ -12,10 +12,9 @@ const SignToken = (id) => {
 
 const createSendToken = (user, statusCode, req, res) => {
   const token = SignToken(user._id);
+  const JWT_COOKIE_EXPIRES_IN = 30;
   res.cookie("jwt", token, {
-    expires: new Date(
-      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
-    ),
+    expires: new Date(Date.now() + JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000),
     httpOnly: true,
     secure: req.secure || req.headers["x-forwarded-proto"] === "https",
   });
